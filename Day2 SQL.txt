@@ -1,0 +1,388 @@
+comm skill 	
+alertness in class	
+ability to apply concepts	
+technical competence
+self learning
+
+
+ Vidit 	     - alertness
+ Yuvashree   - 
+ Mohd Jawwad - 
+ Amrita
+ Amey Singh
+
+
+
+
+				who
+				| ??? <-- java developer
+				|	database table creator
+				|	html/angular author
+				|	hibernate/spring
+		--------------------------------------
+			|		|
+			where		when
+			|space		|time
+		----------------------------------------
+		|		|		|
+		why		what		how
+		|		|		|
+		reason		inFORMation	implementation
+						|
+					---------------------
+					|		|
+					success	<----- feedback
+			
+
+
+
+
+
+
+
+
+				
+
+1 shweta
+2 dibhahar
+3 shreenavya
+4 yuvashri
+5 sahithi
+6 akshita
+7 tanishq
+8 akhilesh
+9 gelvesh
+
+
+ select count(job),job,sum(sal)  <== COLUMN LIST
+	from emp 		 <== TABLE LIST
+	where job='CLERK' or job='MANAGER' or job='SALESMAN' <= CONDITION
+	group by job 		 <== GROUP BY
+	having count(job) >=4 	 <== HAVING
+	order by job;		 <== ORDER BY
+
+
+
+
+	DDL - DEFINITION - TABLE CREATE, ALTER, RENAME, TRUNCATE, DROP
+	DML - INSERT/UPDATE/DELETE
+	DQL - SELECT
+	DCL - GRANT AND REVOKE
+	TCL - commit,rollback and savepoint
+
+
+	Nested queries
+
+		queries within queries
+
+			
+		query1(
+				query2
+				(
+					query3
+				)
+		       )
+
+create view martinview as
+select * from product
+ where prodid in (
+ select prodid from item 
+ where ordid in 
+	(select ordid from ord 
+		where custid 
+			=(select custid from customer 
+			  where repid=
+				(select empno from emp 
+					where ename='MARTIN' 
+				) 
+			 ) 
+	) and ordid=614				
+ );
+				
+
+
+
+		JOIN
+
+			JOINING TABLES TO FETCH MULTIPLE COLUMNS
+			SPANNED ACROSS TABLES
+
+
+
+	LAYER1	DATABASE				DEPT	   EMP
+	LAYER2	CORE JAVA - POJO AS PER DATABASE TABLE  Department Employee ..
+	LAYER3  JDBC - repository in hibernate/jpa
+	LAYER4  Business Service Code - Airline/BusBooking/Employee management
+	LAYER5  Spring Controller - web rest api
+	LAYER6  Angular - SPA - Single Page Application - UI
+	940 61  	13 groups ( 5 people )
+	956
+
+	1. NATURAL JOIN
+
+			CARTESION PRODUCT
+
+	2. EQUI JOIN
+
+			EQUALITY CONDITION
+
+	SELECT D.DEPTNO,DNAME,LOC, EMPNO,ENAME,JOB,SAL,E.DEPTNO
+	FROM DEPT D, EMP E
+	WHERE D.DEPTNO = E.DEPTNO;
+
+
+	3. NON-EQUI
+			NON EQUALITY CONDITION
+	
+	4. OUTER
+
+			UNMATCHED ROWS 
+
+		LEFT OUTER
+			SELECT COLUMNLIST
+			FROM TABLE1
+			LEFT JOIN TABLE2
+			ON TABLE1.COL = TABLE2.COL
+		
+			SELECT D.DEPTNO,DNAME,LOC, EMPNO,ENAME,JOB,SAL,E.DEPTNO
+			FROM DEPT D
+			LEFT JOIN EMP E
+			ON D.DEPTNO = E.DEPTNO
+
+		RIGHT OUTER	
+			SELECT COLUMNLIST
+			FROM TABLE1
+			RIGHT JOIN TABLE2
+			ON TABLE1.COL = TABLE2.COL
+
+			SELECT D.DEPTNO,DNAME,LOC, EMPNO,ENAME,JOB,SAL,E.DEPTNO
+			FROM DEPT D
+			RIGHT JOIN EMP E
+			ON D.DEPTNO = E.DEPTNO
+
+		FULL OUTER
+
+			SELECT COLUMNLIST
+			FROM TABLE1
+			FULL OUTER JOIN TABLE2
+			ON TABLE1.COL = TABLE2.COL
+
+			SELECT D.DEPTNO,DNAME,LOC, EMPNO,ENAME,JOB,SAL,E.DEPTNO
+			FROM DEPT D
+			FULL OUTER JOIN EMP E
+			ON D.DEPTNO = E.DEPTNO
+
+
+
+	SELECT * FROM A,B,C WHERE    2 CONDITIONS
+		
+	5. SELF 
+
+SELECT B.EMPNO,B.ENAME,B.JOB,  E.EMPNO,E.ENAME,E.JOB FROM EMP B, EMP E
+WHERE B.EMPNO = E.MGR;
+
+				KING
+				|7839
+		---------------------------------------------------
+		|				|		|
+		BLAKE				CLARK		JONES
+		|7698				|7782		|7566
+	---------------------------------	------------- 	--------------
+	|	|	|	|	|	|		|	|
+	MARTIN	ALLEN	TURNER	JAMES	WARD	MILLER		FORD	SCOTT
+			
+
+
+
+CREATE TABLE EMP (
+ EMPNO               NUMBER(4) NOT NULL,
+ ENAME               VARCHAR2(10),
+ JOB                 VARCHAR2(9),
+ MGR                 NUMBER(4),
+ HIREDATE            DATE,
+ SAL                 NUMBER(7,2),
+ COMM                NUMBER(7,2),
+ DEPTNO              NUMBER(2)
+)
+INSERT INTO EMP VALUES (7839,'KING','PRESIDENT',NULL,'17-NOV-81',5000,NULL,10);
+INSERT INTO EMP VALUES (7698,'BLAKE','MANAGER',7839,'1-MAY-81',2850,NULL,30);
+INSERT INTO EMP VALUES (7782,'CLARK','MANAGER',7839,'9-JUN-81',2450,NULL,10);
+INSERT INTO EMP VALUES (7566,'JONES','MANAGER',7839,'2-APR-81',2975,NULL,20);
+INSERT INTO EMP VALUES (7654,'MARTIN','SALESMAN',7698,'28-SEP-81',1250,1400,30);
+INSERT INTO EMP VALUES (7499,'ALLEN','SALESMAN',7698,'20-FEB-81',1600,300,30);
+INSERT INTO EMP VALUES (7844,'TURNER','SALESMAN',7698,'8-SEP-81',1500,0,30);
+INSERT INTO EMP VALUES (7900,'JAMES','CLERK',7698,'3-DEC-81',950,NULL,30);
+INSERT INTO EMP VALUES (7521,'WARD','SALESMAN',7698,'22-FEB-81',1250,500,30);
+INSERT INTO EMP VALUES (7902,'FORD','ANALYST',7566,'3-DEC-81',3000,NULL,20);
+INSERT INTO EMP VALUES (7369,'SMITH','CLERK',7902,'17-DEC-80',800,NULL,20);
+INSERT INTO EMP VALUES (7788,'SCOTT','ANALYST',7566,'09-DEC-82',3000,NULL,20);
+INSERT INTO EMP VALUES (7876,'ADAMS','CLERK',7788,'12-JAN-83',1100,NULL,20);
+INSERT INTO EMP VALUES (7934,'MILLER','CLERK',7782,'23-JAN-82',1300,NULL,10);
+
+INSERT INTO EMP VALUES (111,'JACK','MANAGER',7782,'23-JAN-82',1300,NULL,NULL);
+
+
+
+select d.dname,e.ename,c.name,o.orderdate,i.actualprice,i.qty,p.prodid from
+dept d, emp e, customer c, ord o, item i, product p
+where d.deptno = e.deptno
+and   e.empno  = c.repid
+and   c.custid = o.custid
+and   o.ordid  = i.ordid
+and   i.prodid = p.prodid
+/
+
+create view salesorder as
+select d.dname,e.ename,c.name,o.orderdate,i.actualprice,i.qty,p.prodid from
+dept d, emp e, customer c, ord o, item i, product p
+where d.deptno = e.deptno
+and   e.empno  = c.repid
+and   c.custid = o.custid
+and   o.ordid  = i.ordid
+and   i.prodid = p.prodid
+/
+
+select c.name,o.orderdate,o.shipdate,o.total,i.actualprice,i.qty,p.prodid from
+    customer c, ord o, item i, product p
+    where
+      c.custid = o.custid
+    and   o.ordid  = i.ordid
+   and   i.prodid = p.prodid
+
+	/as sysdba
+
+	DCL - data control language
+
+		grant all privileges to USER
+
+----------------------------------------------------------------------
+
+fires autocommit
+	|
+	DDL		with 		Constraints
+	|				|
+	data defition			rules applied on the columns 
+
+	1. create table
+		create table myemployee( ........ )
+
+	2. rename table
+		 rename myemployee to youremployee;
+
+	3. alter table 
+
+		RENAME COLUMN
+		alter table youremployee rename column comm to commision;
+
+		REMOVE COLUMN
+		alter table youremployee drop column commision
+
+		alter table youremployee
+		drop (salary,da); <-- drops both the columns
+
+		ADD NEW COLUMN
+		alter table youremployee	add hra varchar2(20);
+
+		MODIFY COLUMN's data type
+	 	alter table youremployee	 modify hra number;
+
+	4. truncate table
+		empty the table, removes the data which cannot be rollbacked
+		
+	5. drop table - alongwith the rows the structure is lost
+
+
+
+	create table myemployee
+	(
+		empno number,
+		ename  varchar2(20),  
+		email  varchar2(20),
+		joining date,
+		gender  char(1),
+		salary  number,
+		comm    number
+	);
+		
+
+
+	Constraints
+	|	
+	rules on the tables
+
+		1. Integrity constraint - 
+			primary key - unique + not null
+
+		2. Unique constraint
+			unique 
+			null can be entered as many 
+
+		3. Not null - domain constraint
+
+		4. check constraint 
+			check values 
+
+		5. referential integrity constraints 
+			foreign key
+
+		6. default
+			carry a default value (if not supplied by insert query)
+
+
+
+
+
+		column level			table level 
+		|				|
+	alongwith the column definition		
+	
+
+
+
+	create table myemp
+	(
+		empno number primary key,
+		ename  varchar2(20) not null,  
+		email  varchar2(20) unique,
+		joining date check (joining < '01-Jan-2021' ),
+		gender  char(1) default 'F',
+		salary  number check (salary>5000),
+		comm    number check (comm > 500),
+		dno     number references dept(deptno)
+	);
+
+
+
+	 unique constraint (SCOTT.SYS_C0013926) violated  -- empno
+	 cannot insert NULL into ("SCOTT"."MYEMP"."ENAME") -- null ename
+	 unique constraint (SCOTT.SYS_C0013927) violated  -- email
+
+ 	 check constraint (SCOTT.SYS_C0013923) violated - joining
+	 check constraint (SCOTT.SYS_C0013924) violated - salary
+	 check constraint (SCOTT.SYS_C0013925) violated - comm
+         
+	integrity constraint (SCOTT.SYS_C0013928) violated - 
+			parent key not found - deptno not found in dept
+	
+
+insert into myemp (empno,ename,email,joining,salary,comm,dno) values (1238,'anjali','anjali@gmail.com','10-Nov-2020',7500,750,30);
+
+
+     create table myemp
+    (
+    empno number primary key,
+    ename  varchar2(20) not null,
+    email  varchar2(20) unique,
+    joining date check (joining < '01-Jan-2021' ),
+    gender  char(1) default 'F',
+    salary  number check (salary>5000),
+    comm    number check (comm > 500),
+   dno     number references dept(deptno)
+   );
+
+
+
+
+
+
+
