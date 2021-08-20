@@ -334,7 +334,7 @@ fires autocommit
 
 		column level			table level 
 		|				|
-	alongwith the column definition		
+	alongwith the column definition		after the table completion
 	
 
 
@@ -364,25 +364,65 @@ fires autocommit
 	integrity constraint (SCOTT.SYS_C0013928) violated - 
 			parent key not found - deptno not found in dept
 	
+	select constraint_name, constraint_type, search_condition,status                     from user_constraints where table_name='MYEMP';    
 
 insert into myemp (empno,ename,email,joining,salary,comm,dno) values (1238,'anjali','anjali@gmail.com','10-Nov-2020',7500,750,30);
 
 
-     create table myemp
+    create table myemp
     (
-    empno number primary key,
-    ename  varchar2(20) not null,
-    email  varchar2(20) unique,
-    joining date check (joining < '01-Jan-2021' ),
-    gender  char(1) default 'F',
-    salary  number check (salary>5000),
-    comm    number check (comm > 500),
-   dno     number references dept(deptno)
+    	empno   number primary key,
+    	ename   varchar2(20) not null,
+    	email   varchar2(20) unique,
+    	joining date check (joining < '01-Jan-2021' ),
+    	gender  char(1) default 'F',
+	salary  number check (salary>5000),
+	comm    number check (comm < salary),
+   	dno     number references dept(deptno)
    );
 
 
 
 
 
+
+    create table myemp2
+    (
+    	empno   number ,
+    	ename   varchar2(20) not null,
+    	email   varchar2(20) ,
+    	joining date ,
+    	gender  char(1) default 'F',
+    	salary  number ,
+    	comm    number ,
+   	dno     number ,
+        primary key (empno),
+	unique (email),
+	check (joining < '01-Jan-2021' ),
+	check (salary>5000),
+	check (comm > 500),
+	foreign key (dno) references dept(deptno)
+    );
+
+insert into myemp2 (empno,ename,email,joining,salary,comm,dno) values (1238,'anjali','anjali@gmail.com','10-Nov-2020',7500,750,30);
+
+
+    create table myemp3
+    (
+    	empno   number ,
+    	ename   varchar2(20) not null,
+    	email   varchar2(20) ,
+    	joining date ,
+    	gender  char(1) default 'F',
+    	salary  number ,
+    	comm    number ,
+   	dno     number ,
+        primary key (empno),
+	unique (email),
+	check (joining < '01-Jan-2021' ),
+	check (salary > 5000 ),
+	check (comm < salary),
+	foreign key (dno) references dept(deptno)
+    );
 
 
