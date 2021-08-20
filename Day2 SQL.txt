@@ -7,9 +7,16 @@ self learning
 
  Vidit 	     - alertness
  Yuvashree   - 
- Mohd Jawwad - 
+ Mohd Jawwad - *** 
  Amrita
  Amey Singh
+
+		
+		HARDWORK -> HARDWORK
+		HARDWORK -> SMARTWORK
+		SMARTWORK -> HARDWORK
+		SMARTWORK -> SMARTWORK
+
 
 
 
@@ -369,24 +376,26 @@ fires autocommit
 insert into myemp (empno,ename,email,joining,salary,comm,dno) values (1238,'anjali','anjali@gmail.com','10-Nov-2020',7500,750,30);
 
 
-    create table myemp
+    create table myemp3
     (
-    	empno   number primary key,
-    	ename   varchar2(20) not null,
-    	email   varchar2(20) unique,
-    	joining date check (joining < '01-Jan-2021' ),
-    	gender  char(1) default 'F',
-	salary  number check (salary>5000),
-	comm    number check (comm < salary),
-   	dno     number references dept(deptno)
+    	empno   number       CONSTRAINT myemp3_pk          primary key,
+    	ename   varchar2(20) CONSTRAINT myemp3_en_nn       not null,
+    	email   varchar2(20) CONSTRAINT myemp3_email_uq    unique,
+    	joining date         CONSTRAINT myemp3_joining_chk check (joining < '01-Jan-2021' ),
+    	gender  char(1)     			           default 'F',
+	salary  number       CONSTRAINT myemp3_sal_chk     check (salary>5000),
+	comm    number       CONSTRAINT myemp3_comm_chk    check (comm < 500),
+   	dno     number       CONSTRAINT myemp3_dno_fk      references dept(deptno)
    );
 
 
+insert into myemp3 values (1238,'anjali','anjali@gmail.com','10-Nov-2020','F',7500,750,30);
 
 
 
 
-    create table myemp2
+
+    create table myemp4
     (
     	empno   number ,
     	ename   varchar2(20) not null,
@@ -404,7 +413,7 @@ insert into myemp (empno,ename,email,joining,salary,comm,dno) values (1238,'anja
 	foreign key (dno) references dept(deptno)
     );
 
-insert into myemp2 (empno,ename,email,joining,salary,comm,dno) values (1238,'anjali','anjali@gmail.com','10-Nov-2020',7500,750,30);
+insert into myemp (empno,ename,email,joining,salary,comm,dno) values (1238,'anjali','anjali@gmail.com','10-Nov-2020',7500,750,30);
 
 
     create table myemp3
@@ -424,5 +433,261 @@ insert into myemp2 (empno,ename,email,joining,salary,comm,dno) values (1238,'anj
 	check (comm < salary),
 	foreign key (dno) references dept(deptno)
     );
+
+
+			5 people 
+			3 
+
+	windows		mac
+	|		|
+	i3 4gb		i5 8gb     
+
+
+				STS
+	oracle	eclipse	 /  spring tool suite	postman		MS VS code
+	|	|		|		|			|
+	db	java		spring		test REST api		angular
+	|
+	layer1	layer2	layer3	   layer4   layer5			layer6
+
+	i5 8gb/16gb
+
+
+
+
+
+	1 TO ONE
+		1 EMPLOYEE	1 PASSPORT
+		1 BANKUSER	1 PANCARD
+		1 CITIZEN	1 VOTING CARD
+				
+		
+	1 TO MANY
+		1 EMPLOYEE	MANY BANK ACCOUNTS
+				MANY CARS
+				MANY PROJECTS
+
+	MANY TO MANY
+
+		MANY EMPLOYEE	MANY PROJECTS
+
+
+
+
+
+ create table myemp3
+ (
+    empno   number       CONSTRAINT myemp3_pk          primary key,
+    ename   varchar2(20) CONSTRAINT myemp3_en_nn       not null,
+    email   varchar2(20) CONSTRAINT myemp3_email_uq    unique,
+    joining date         CONSTRAINT myemp3_joining_chk check (joining < '01-Jan-2021' ),
+    gender  char(1)                default 'F',
+    salary  number       CONSTRAINT myemp3_sal_chk     check (salary>5000),
+    comm    number       CONSTRAINT myemp3_comm_chk    check (comm < 500),
+    dno     number       CONSTRAINT myemp3_dno_fk      references dept(deptno)
+   );
+
+ALTER  TABLE NAME  ADD	CONSTRAINT CONSTRAINTNAME	CONSTRAINT TYPE
+|	|    |       |     |		|		|
+alter table myemp3 add CONSTRAINT myemp3_gender_chk check (gender in ('M','F'));
+
+select constraint_name, constraint_type from user_constraints
+    where table_name='MYEMP3';
+
+
+	COMMIT - CHANGES DONE IN A TRANSACTION ARE PERMANENT
+
+	ROLLBACK - REVERSES THE CHANGES TO THE LAST COMMIT POINT
+
+	SAVEPOINT = TO SPECIFY A POINT IN OUR TRANSACTION TO WHICH LATER ONE CAN 
+			ROLLBACK
+
+
+
+
+
+	savepoint fundtansfer1;
+		select bal from account where source=123; - debit 
+		select bal from account where source=456; - credit
+		update account set bal=bal-transferamt where source=123;
+		update account set bal=bal+transferamt where source=456;
+	
+		
+	savepoint fundtransfer2;
+		select bal from account where source=789; - debit 
+		select bal from account where source=667; - credit
+		update account set bal=bal-transferamt where source=789;
+		update account set bal=bal+transferamt where source=667;
+
+
+	savepoint fundtransfer3;
+		select bal from account where source=888; - debit 
+		select bal from account where source=999; - credit
+		update account set bal=bal-transferamt where source=888;
+		update account set bal=bal+transferamt where source=999;
+		
+		rollback to fundtransfer3;
+
+
+
+
+
+
+
+		SME - in comfortable  state
+		|
+		You - in comfortable  state
+	
+		brain = default state of the brain = uncomfortness
+
+	difficult		intermediate		easy
+
+
+	
+		Knowledge ------> applied --------> WISDOM
+		|
+		useless
+
+
+
+
+
+
+
+	create table emp
+	(
+	   empno ..
+	   job  ..
+	
+	   unique(empno,job)
+	)
+
+		emp
+	empno		job
+	123		clerk
+	123		clerk
+
+
+
+
+		PL  SQL
+
+		Procedural Language
+
+				STORED PROCEDURES AND FUNCTIONS
+
+
+		Sequence  - series of lines
+		Selection - if condition
+		Iteration - while loop and for loop 
+
+	Abc.c			Abc.java			????
+
+	C program		Java Program			PLSQL Program
+	|			|				|
+	main() {		main() {		
+	  printf("hello");	  System.out.println("hello");	????
+	}			}
+	
+
+
+
+		begin <----- same like a method begining
+			your code
+			your code
+		end; <----- same like a method end
+
+
+		ANNANYMOUS BLOCK - BLOCK WITH NAME 
+
+declare
+   x number:=10;
+   y number:=20;
+   z number:=30;
+begin
+   dbms_output.put_line('Outer begin of pl sql ');
+   dbms_output.put_line('value of x ' || x );
+   dbms_output.put_line('value of y ' || y );
+   dbms_output.put_line('value of z ' || z );
+
+	declare
+		a number:=100;
+	begin
+	   dbms_output.put_line('Inner begin of pl sql ');
+	   dbms_output.put_line('value of a ' || a );
+	   dbms_output.put_line('value of x ' || x );
+	   dbms_output.put_line('value of y ' || y );
+	   dbms_output.put_line('value of z ' || z );
+	   dbms_output.put_line('inner end of pl sql' );
+	end;
+
+   dbms_output.put_line('Outer end of pl sql' );
+end;
+
+
+=======================
+
+declare
+  2     x number;
+  3     y varchar2(20);
+  4     z varchar2(20);
+  5  begin
+  6     select deptno,dname,loc INTO x,y,z from dept where deptno=10;
+  7     dbms_output.put_line('DEPARTMENT NUMBER : '|| x);
+  8     dbms_output.put_line('DEPARTMENT NAME   : '|| y);
+  9     dbms_output.put_line('DEPARTMENT LOC    : '|| z);
+ 10  end;
+ 11  /
+
+===========================
+
+   declare
+       x number:='10';
+       y dept.dname%type;
+       z dept.loc%type;
+    begin
+       select deptno,dname,loc INTO x,y,z from dept where deptno=10;
+       dbms_output.put_line('DEPARTMENT NUMBER : '|| x);
+       dbms_output.put_line('DEPARTMENT NAME   : '|| y);
+       dbms_output.put_line('DEPARTMENT LOC    : '|| z);
+  end;
+ /
+====================
+
+  1   declare
+  2         x dept%rowtype;
+  3      begin
+  4         select * INTO x from dept where deptno=10;
+  5         dbms_output.put_line('DEPARTMENT NUMBER : '|| x.deptno);
+  6         dbms_output.put_line('DEPARTMENT NAME   : '|| x.dname);
+  7         dbms_output.put_line('DEPARTMENT LOC    : '|| x.loc);
+  8*   end;
+
+==============================
+
+ CREATE TABLE BANKACCOUNT
+    (
+       ACNO NUMBER PRIMARY KEY,
+       ACNAME VARCHAR2(20) NOT NULL,
+       ACBAL  NUMBER CHECK ( ACBAL >= 5000)
+    );
+
+insert into bankaccount values (101,'Jack',50000);
+insert into bankaccount values (102,'Jane',60000);
+insert into bankaccount values (103,'Julie',70000);
+insert into bankaccount values (104,'Julia',80000);
+insert into bankaccount values (105,'Joy',90000);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
