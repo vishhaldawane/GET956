@@ -4,13 +4,14 @@ ability to apply concepts
 technical competence
 self learning
 
-
+ Sufiyan 
  Vidit 	     - alertness
  Yuvashree   - 
  Mohd Jawwad - *** 
  Amrita
  Amey Singh
  Hemant *
+ dibahar ***
 
 		
 		HARDWORK -> HARDWORK
@@ -697,11 +698,11 @@ insert into transaction values (trans_sequence.nextval,101,102,5000,'Debit',4500
 
 
 =====================
+	stored procedure
 	
-declare
-       x number:=&source; 
-       y number:=&target;
-       transaction_amount number:=&amount;
+
+create or replace procedure FundTransfer(x number,y number, transaction_amount number)
+as
        source_acc_balance number;
        ben_acc_balance number;
     begin
@@ -717,12 +718,18 @@ declare
 
       update bankaccount set ACBAL=ACBAL-transaction_amount where ACNO=x;
       update bankaccount set ACBAL=ACBAL+transaction_amount where ACNO=y;
-      insert into transaction values (trans_sequence.nextval,x,y,transaction_amount,'Debit',source_acc_balance-transaction_amount,ben_acc_balance+transaction_amount,sysdate);
+      insert into transaction values (trans_sequence.nextval,x,y,transaction_amount,'Debit',source_acc_balance-transaction_amount,ben_acc_balance+transaction_amount,systimestamp);
 
       dbms_output.put_line('Transfer successful.....');
       commit;
    end;
   /
+
+
+
+--------------
+select tran_id,to_char(systimestamp,'dd-Mon-YYYY HH:MI:SS.FF') from transaction order by tran_id;
+alter table transaction modify tran_date timestamp;
 
 
 
