@@ -10,6 +10,7 @@ self learning
  Mohd Jawwad - *** 
  Amrita
  Amey Singh
+ Hemant *
 
 		
 		HARDWORK -> HARDWORK
@@ -694,6 +695,34 @@ insert into bankaccount values (105,'Joy',90000);
 	
 insert into transaction values (trans_sequence.nextval,101,102,5000,'Debit',45000,65000,sysdate);
 
+
+=====================
+	
+declare
+       x number:=&source; 
+       y number:=&target;
+       transaction_amount number:=&amount;
+       source_acc_balance number;
+       ben_acc_balance number;
+    begin
+       dbms_output.put_line('Transfer in progress....');
+
+       dbms_output.put_line('Fetching source balance....');
+       select ACBAL into source_acc_balance from bankaccount where ACNO=x;
+       dbms_output.put_line('Source balance....'||source_acc_balance);
+
+      dbms_output.put_line('Fetching ben balance....');
+      select ACBAL into ben_acc_balance from bankaccount where ACNO=y;
+      dbms_output.put_line('Ben balance....'||ben_acc_balance);
+
+      update bankaccount set ACBAL=ACBAL-transaction_amount where ACNO=x;
+      update bankaccount set ACBAL=ACBAL+transaction_amount where ACNO=y;
+      insert into transaction values (trans_sequence.nextval,x,y,transaction_amount,'Debit',source_acc_balance-transaction_amount,ben_acc_balance+transaction_amount,sysdate);
+
+      dbms_output.put_line('Transfer successful.....');
+      commit;
+   end;
+  /
 
 
 
