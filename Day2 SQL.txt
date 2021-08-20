@@ -1,3 +1,13 @@
+
+
+		JDK 16
+
+		ECLIPSE VERSION "ENTERPRISE EDITION" (NOT THE DESKTOP)
+		|
+		2021-03 
+		2021-06
+
+
 comm skill 	
 alertness in class	
 ability to apply concepts	
@@ -701,7 +711,7 @@ insert into transaction values (trans_sequence.nextval,101,102,5000,'Debit',4500
 	stored procedure
 	
 
-create or replace procedure FundTransfer(x number,y number, transaction_amount number)
+create or replace procedure FundTransfer(x number,y number, transaction_amount number) 
 as
        source_acc_balance number;
        ben_acc_balance number;
@@ -728,13 +738,192 @@ as
 
 
 --------------
-select tran_id,to_char(systimestamp,'dd-Mon-YYYY HH:MI:SS.FF') from transaction order by tran_id;
+select tran_id,tran_date from transaction order by tran_id;
 alter table transaction modify tran_date timestamp;
 
+ select text from user_source where name='FUNDTRANSFER';
+
+	SQL> begin	
+		fundtransfer(101,102,5000);
+		fundtransfer(101,103,7000);
+		fundtransfer(103,104,8000);
+	   end;
 
 
 
+	procedure			function
 
+	|				|
+	input arguments			input arguments
+	out argument			out arguments
+	|				|
+	cannot return value		must (mandatory) return value
+
+procedure greet1(x varchar2)		function greet2(x varchar2) return number
+as					as
+begin					begin
+  dbms_output.put_line('hello '||x);	  dbms_output.put_line('hello '||x);
+					  return 0;
+end;					end;
+	
+	CANNOT BE INVOKED		FUNCTION CAN BE INVOKED VIA
+	IN SQL STATEMENTS		SQL STATEMENT
+
+
+	int fun()
+	{
+
+	}
+
+
+
+CREATE OR REPLACE FUNCTION CALC_SAL(X NUMBER) RETURN NUMBER
+    AS
+      TOT_SALARY NUMBER;
+    BEGIN
+       SELECT SAL+SAL*0.10 INTO TOT_SALARY FROM EMP WHERE EMPNO=X;
+       RETURN TOT_SALARY;
+	EXCEPTION WHEN NO_DATA_FOUND THEN
+		RETURN NULL;
+    END;
+    /
+
+declare
+      t number;
+    begin
+      t:=calc_sal(&num);
+      dbms_output.put_line(' total salary is ' || t);
+    end;
+    /
+		       E
+		       |
+		A<--   B --> C
+		       |
+		       D
+
+CREATE OR REPLACE FUNCTION CALC_SAL(X IN NUMBER, Y OUT VARCHAR2, Z OUT VARCHAR2) RETURN NUMBER
+        AS
+          TOT_SALARY NUMBER;
+        BEGIN
+           SELECT SAL+SAL*0.10 INTO TOT_SALARY FROM EMP WHERE EMPNO=X;
+	   SELECT ENAME,JOB INTO Y,Z FROM EMP WHERE EMPNO=X;
+
+           RETURN TOT_SALARY;
+    EXCEPTION WHEN NO_DATA_FOUND THEN
+    RETURN NULL;
+        END;
+   /
+
+
+
+ DECLARE
+      A VARCHAR2(20);
+      B VARCHAR2(20);
+      C NUMBER;
+    BEGIN
+          dbms_output.put_line('A '||A);
+          dbms_output.put_line('B '||B);
+	   dbms_output.put_line('B '||B);
+         C:=CALC_SAL(&NUM,A,B);
+          dbms_output.put_line('A '||A);
+         dbms_output.put_line('B '||B);
+	   dbms_output.put_line('B '||B);
+   END;
+   /
+
+
+
+CREATE OR REPLACE PROCEDURE CALC_SAL_PROC(X IN NUMBER, Y OUT VARCHAR2, Z OUT VARCHAR2, TS OUT NUMBER) 
+        AS
+
+        BEGIN
+	   SELECT ENAME,JOB,SAL+SAL*0.10 INTO Y,Z,TS FROM EMP WHERE EMPNO=X;
+           
+    EXCEPTION WHEN NO_DATA_FOUND THEN
+    		Y:=NULL;
+		Z:=NULL;
+		TS:=NULL;
+        END;
+   /
+
+
+DECLARE
+      A VARCHAR2(20);
+      B VARCHAR2(20);
+      C NUMBER;
+    BEGIN
+          dbms_output.put_line('A '||A);
+          dbms_output.put_line('B '||B);
+	   dbms_output.put_line('B '||B);
+          CALC_SAL_PROC(&NUM,A,B,C);
+          dbms_output.put_line('A '||A);
+         dbms_output.put_line('B '||B);
+	   dbms_output.put_line('B '||B);
+   END;
+   /
+
+		TYPING TALKING	HEARING	PACE		SMELL
+		|	|	|	 |		|	
+		EYE	MOUTH	EAR	SKIN(EMOTION)	NOSE
+
+
+		
+create or replace FUNCTION FundTransfer_FUN(x number,y number, transaction_amount number) RETURN BOOLEAN 
+as
+       source_acc_balance number;
+       ben_acc_balance number;
+    begin
+       dbms_output.put_line('Transfer in progress....');
+
+       dbms_output.put_line('Fetching source balance....');
+       select ACBAL into source_acc_balance from bankaccount where ACNO=x;
+       dbms_output.put_line('Source balance....'||source_acc_balance);
+
+      dbms_output.put_line('Fetching ben balance....');
+      select ACBAL into ben_acc_balance from bankaccount where ACNO=y;
+      dbms_output.put_line('Ben balance....'||ben_acc_balance);
+
+      update bankaccount set ACBAL=ACBAL-transaction_amount where ACNO=x;
+      update bankaccount set ACBAL=ACBAL+transaction_amount where ACNO=y;
+      insert into transaction values (trans_sequence.nextval,x,y,transaction_amount,'Debit',source_acc_balance-transaction_amount,ben_acc_balance+transaction_amount,systimestamp);
+
+      dbms_output.put_line('Transfer successful.....');
+      commit;
+      RETURN TRUE;
+	EXCEPTION WHEN NO_DATA_FOUND THEN
+		ROLLBACK;
+		RETURN FALSE;
+   end;
+  /
+
+	DECLARE 
+		DONE BOOLEAN;
+	begin	
+		if(fundtransfer_FUN(101,102,1000))
+		then
+			dbms_output.put_line('TRANSFER DONE ');
+		else 
+			dbms_output.put_line('TRANSFER not DONE ');
+		end if;
+		dbms_output.put_line('---------------------------');
+
+	end;
+
+
+		DONE:=fundtransfer_FUN(101,113,7000);
+				if(done) then
+			dbms_output.put_line('TRANSFER DONE ');
+		else 
+			dbms_output.put_line('TRANSFER not DONE ');
+		end if;
+		dbms_output.put_line('---------------------------');
+
+		DONE:=fundtransfer_FUN(103,104,8000);
+		if(done) then
+			dbms_output.put_line('TRANSFER DONE ');
+		else 
+			dbms_output.put_line('TRANSFER not DONE ');
+		end if;
 
 
 
