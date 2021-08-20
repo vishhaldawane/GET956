@@ -679,7 +679,20 @@ insert into bankaccount values (104,'Julia',80000);
 insert into bankaccount values (105,'Joy',90000);
 
 
+ create table transaction
+    (
+       tran_id number primary key,
+       from_acc number references bankaccount(acno),
+       to_acc number   references bankaccount(acno),
+       tran_amount    number check (tran_amount>0),
+       tran_type  varchar2(10) check (tran_type in('Debit','Credit')),
+       source_bal number,
+       ben_bal number,
+      tran_date date
+   );
 
+	
+insert into transaction values (trans_sequence.nextval,101,102,5000,'Debit',45000,65000,sysdate);
 
 
 
