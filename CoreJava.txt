@@ -1,0 +1,305 @@
+
+	Rahul - *
+
+	
+
+
+
+			Java Programming Language
+			 	|		|
+				|		communicate
+		----------------+		|	
+		|			----------------------------
+	set of instructions		|	|	  |	  |
+	in seqeunce - 1-1000		listen	speaking  reading writing
+	in selection  if condition	concepts concepts program program
+	in iteration  loop, for, 	-->	-->	  ->	  ->
+		      while,do while
+
+
+			
+ 1	Java basics
+		JDK JRE DATA TYPES
+		PACKAGES
+		CLASS
+		CONSTRUCTOR
+		STATIC
+		ARRAYS
+
+
+ 2	OOPS CONCEPTS 
+		INHERITANCE, ABSTRCT CLASSES, INTERFACES	
+
+	
+ 3	WRAPPER CLASSES, STRING CLASS, EXCEPTION HANDLING
+
+
+ 4	GENERICS AND COLLECTIONS, JAVA 8 FEATURES LAMBDA
+
+ 5	JAVA 8 FEATURES, JDBC
+
+
+
+
+
+
+	Java features
+	-----------------
+
+	1. Simple
+		legacy of C++
+		syntax of C++ in object oriented manner
+
+		- no pointers
+		- no memory management - allocation/de-allocation
+
+
+	2. Object oriented programming system - OOPS
+
+
+		pops			vs		oops		
+		|					|
+
+
+
+	3. Platform neutral 
+
+	4. Robust
+
+		no memory management
+		exception handling
+	
+	5. Dynamic
+
+		everything is at runtime
+
+	6. Multithreaded
+
+	7. Distributed
+			network based application development
+
+
+
+	Eclipse --> asks for a workspace to begin with
+				|
+			  d:\get956
+				|
+				welcome
+
+
+
+	
+	DOWNLOAD SONGS 
+		   |
+		   d:
+		    |
+     FOLDERS->    MYSONGS <-- PACKAGES IN JAVA
+		    |
+		AUDIO	VIDEO <-- PACKAGES IN JAVA
+		|	|
+		|
+		----------------------------------------
+		|	|	|		|	
+		POP	ROCK	CLASSICAL	FOLK <-- PACKAGES IN JAVA
+
+
+		d:\MYSONGS\AUDIO\CLASSICAL
+
+		/USERS/MYSONGS/AUDIO/CLASSICAL
+
+
+		D:\ --> inside the harddrive --> laptop->on my table-> room -> building-> city.... galaxy.....
+		|
+		GET956
+		|
+	------------------------------------------
+	|				
+	GreetingProject			
+		|
+		greet <-- a folder / package [ optional ]
+		|
+		message
+		|
+	----------------+
+	|		|   java.lang.Object <-- as a default parent class
+	|		|    |  java\lang\Object <-- OS 
+			|    |  java/lang/Object <--OS
+			|    |
+		   GreetTest.java <--- your java code
+
+
+	greet.message.GreetTest.java <-- compiled and out of it class files are 
+					 generated
+
+	compiler
+	|
+	javac GreetTest.java <-- compilation of the code
+
+	greet.message.GreetTest.class <-- as per the class declared in it
+
+	java GreetTest <-- without the .class extension
+	|	 |
+  interpreter  if it has main() function then it would run
+
+
+
+				DATA TYPES
+				   |
+		-----------------------------------------
+			|			|
+		   primitive		  	secondary
+			|				|
+	------------------------------------		-------------------------
+	|	  |	  		 |		|
+	Integral Floating   Character Boolean		Object
+	|	    |		 |	  |		    |
+	byte  1   float  4    char 2 	boolean 1	 String 
+	short 2   double 8 	UNICODE   true / false
+	int   4			ASCII 
+	long  8			256 + UNICODE
+					65535
+range of 256 numbers  - byte 
+
+	
+	-128 -4 -3 -2 -1 0 1 2 3 4 ..... 127
+byte	<-------dial of a  byte ----------->
+
+short	-32768		 0 		32767
+
+int	-2 147 483 648	 0 	2 147 483 647
+
+long    -9223 372 036 854 775 808 (2^63) - 0 -  9223 372 036 854 775 807
+	
+	
+
+float  32 bits 3.40282347 x 10^38 ,  1.40239846 x 10^-45
+
+double 64 bits 1.7976931348623157 x 10^308, 4.9406564584124654 x 10^-324
+	
+
+
+
+
+
+
+
+//class is like a blueprint		vs   instance is outcome of that blueprint
+//eg. blueprint of a house		vs	 the actucal house(s)
+
+
+
+	notepad with jdk16
+	OR
+	Eclipse with Jdk 16 - IDE
+
+
+
+
+
+1 Person p1 = new Person(); //object is already constructed
+
+2 p1.setPerson("MARTIN",'M', -23,"martin@gmail.com"); //sending illegal data
+
+3 p1.printPerson();
+
+
+		
+
+		Stack				Heap (Free store)
+		|				|
+
+
+				---------------------------------------
+				|name   |gender	| age|	email	      |
+				---------------------------------------
+				|null   |''     |0   |null            |
+				---------------------------------------
+		+-------------->100
+		|			
+		|			method area
+            +---|-------+		------------
+	    | 100  	|		setPerson(nm,g,a,em) { }
+            +-----------+		printPerson()    { }
+		p1
+
+
+
+
+
+
+
+
+		12 3 4 5 678
+		ag a r   wal		sound is same
+		ag g a r wal	sound is same
+		ag r a   wal		sound is same
+
+
+	  1   2   3     4     5    678
+    	  a   g  [agr] [ra]   r*   wal
+
+	* matched zero or more
+	+ matched atleast once or more
+
+
+
+
+	Constructor 
+	----------------
+
+		- is a special function to "initialize the state" of an object
+
+		- a constructor is ONLY invoked during the object creation time
+
+		- a constructor CAN NEVER BE invoked post to the creation of an object
+
+		- has the same name as of the enclosing class
+
+		- it does not have return type
+
+		- it can take parameters
+
+		- every class comes with an implicit constructor
+		  PROVIDED BY JPL, also known as the DEFAULT CONSTRUCTOR
+
+			- the default constructor is does nothing
+
+
+
+		- Whereas a developer can provide explicit constructor
+		  and that overrrides the default/implicit constructor
+
+		- if return type is specified, then it is like any other function
+			then it is never a constructor
+
+
+
+	class Tiger
+	{
+		Tiger() { 
+			//u can do some coding here
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
