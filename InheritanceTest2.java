@@ -1,18 +1,24 @@
 /* inherited
  * overridden
  * exclusive
- * implemented
+ * implemented						PanDetails
+ * 									|  showPan();
+ * 									|
  * 					abstract BankAccount <-- super class- Generalization
  * 							|acno,name,balance
  * 							|	
 							|abstract void withdraw(double amountToWithdraw); //declared - not defined
 							|abstract void deposit(double amountToDeposit); //declared - not defined
-							|
+							|extends
  * 			--------------------------------------
  * 			|				|				|
+ *          |  ?  ? ?       |    ?          |   ?
+ * 			|  |  | |       |    |          |   |
  * 		SavingsAccount	CurrentAccount	CreditAccount <-- Specialization
  * 		rate				overdraft		creditLimit
  * 		|
+ *      |     ?
+ *      |     |
  * FixedDepositAccount <--<-- Specialization
  * 	maturityYear
  * 
@@ -37,14 +43,26 @@
  *   
  *   ABSTRACT CLASS "MAY NOT HAVE" ABSTRACT METHODS
  *   
+ *   Interfaces : pure abstract class
+ *   
+ *    - it cannot have methods with body
+ *    
+ *   it is not compulsory for an abstract class to define/fulfill the contracts
+ *   of its interface/abstract parent
+ *   
+ *   it is only compulsory for the non-abstract immediate children
+ *   
  * */
 
 class BankOperation
 {
 	static void processAllAccounts(BankAccount ref) {
 		System.out.println("Name of the class : "+ref.getClass().getName());
+		ref.showPAN();
 		ref.showBankAccount();
+		ref.askPin();
 		ref.withdraw(135000);
+		System.out.println("---------------");
 		ref.showBankAccount();
 		System.out.println("---------------");
 	}
@@ -64,7 +82,10 @@ public class InheritanceTest2 {
 	
 	}
 }
-abstract class BankAccount //extends Object
+interface PanDetails {
+	void showPAN(); // by default it is public abstract
+}
+abstract class BankAccount implements PanDetails //extends Object
 {
 	private int accountNumber;
 	private String accountHolderName;
@@ -72,7 +93,7 @@ abstract class BankAccount //extends Object
 	
 	abstract void withdraw(double amountToWithdraw); //declared - not defined
 	abstract void deposit(double amountToDeposit); //declared - not defined
-	
+	abstract void askPin();
 	
 	public BankAccount(int accountNumber, String accountHolderName, double accountBalance) {
 		super(); //not required
@@ -107,7 +128,7 @@ class SavingsAccount extends BankAccount {
 	}
 	void withdraw(double amountToWithdraw) { //mandatory definition
 		if(amountToWithdraw > (super.accountBalance-5000) ) {
-			System.out.println("Cannot withdraw,please maintain account balance as 5000");
+			System.out.println("Cannot withdraw, please maintain account balance as 5000");
 		}
 		else {
 			super.accountBalance =super.accountBalance - amountToWithdraw;
@@ -121,6 +142,13 @@ class SavingsAccount extends BankAccount {
 		else {
 			super.accountBalance = super.accountBalance + amountToDeposit;
 		}
+	}
+	void askPin() {
+		System.out.println("Enter SavingsAccount : Pin ");
+	}
+	
+	public void showPAN() {
+		System.out.println("Savings Account PAN card");
 	}
 	
 }
@@ -143,6 +171,7 @@ class FixedDepositAccount extends SavingsAccount {
 		return coumpundInterest;
 	}
 	//P(1+r/100)^n
+	
 }
 
 class CurrectAccount extends BankAccount {
@@ -179,6 +208,12 @@ class CurrectAccount extends BankAccount {
 			super.accountBalance = super.accountBalance + amountToDeposit;
 		}
 	}
+	void askPin() {
+		System.out.println("Enter CurrentAccount : OTP ");
+	}
+	public void showPAN() {
+		System.out.println("CurrentAccount PAN card");
+	}
 }
 class CreditAccount extends BankAccount {
 	private float creditLimit; //100000
@@ -207,9 +242,15 @@ class CreditAccount extends BankAccount {
 	} 
 	
 	void deposit(double amountToDeposit) { //mandatory definition
-			System.out.println("Tank you for the bill payment : "+amountToDeposit);
+			System.out.println("Thank you for the bill payment : "+amountToDeposit);
 			super.accountBalance = super.accountBalance + amountToDeposit;
 
+	}
+	void askPin() {
+		System.out.println("Enter CreditAccount : password ");
+	}
+	public void showPAN() {
+		System.out.println("CreditAccount  PAN card");
 	}
 }
 
