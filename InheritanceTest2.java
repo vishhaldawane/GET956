@@ -44,6 +44,8 @@ class BankOperation
 	static void processAllAccounts(BankAccount ref) {
 		System.out.println("Name of the class : "+ref.getClass().getName());
 		ref.showBankAccount();
+		ref.withdraw(135000);
+		ref.showBankAccount();
 		System.out.println("---------------");
 	}
 }
@@ -103,6 +105,24 @@ class SavingsAccount extends BankAccount {
 		double simpleInterest = (super.accountBalance * 1 *rateOfInterest )/100; 
 		return simpleInterest;
 	}
+	void withdraw(double amountToWithdraw) { //mandatory definition
+		if(amountToWithdraw > (super.accountBalance-5000) ) {
+			System.out.println("Cannot withdraw,please maintain account balance as 5000");
+		}
+		else {
+			super.accountBalance =super.accountBalance - amountToWithdraw;
+		}
+	} 
+	
+	void deposit(double amountToDeposit) { //mandatory definition
+		if(amountToDeposit >= 50000) {
+			System.out.println("Please provide income proof to deposit : "+amountToDeposit);
+		}
+		else {
+			super.accountBalance = super.accountBalance + amountToDeposit;
+		}
+	}
+	
 }
 class FixedDepositAccount extends SavingsAccount {
 	private int maturityYear;
@@ -142,6 +162,23 @@ class CurrectAccount extends BankAccount {
 		double withdrawLimit = super.accountBalance + super.accountBalance * overDraftLimit; 
 		return withdrawLimit;
 	}
+	void withdraw(double amountToWithdraw) { //mandatory definition
+		if(amountToWithdraw > calculateWithdrawLimit() ) {
+			System.out.println("Cannot withdraw, amount to withdraw is exceeding overdraft limit.."+amountToWithdraw);
+		}
+		else {
+			super.accountBalance =super.accountBalance - amountToWithdraw;
+		}
+	} 
+	
+	void deposit(double amountToDeposit) { //mandatory definition
+		if(amountToDeposit >= 50000) {
+			System.out.println("Please provide TDS certificate : "+amountToDeposit);
+		}
+		else {
+			super.accountBalance = super.accountBalance + amountToDeposit;
+		}
+	}
 }
 class CreditAccount extends BankAccount {
 	private float creditLimit; //100000
@@ -159,6 +196,20 @@ class CreditAccount extends BankAccount {
 	private double calculateCurrentCreditLimit() {
 		double currentLimit = creditLimit - super.accountBalance; 
 		return currentLimit;
+	}
+	void withdraw(double amountToWithdraw) { //mandatory definition
+		if(amountToWithdraw > calculateCurrentCreditLimit() ) {
+			System.out.println("Cannot withdraw, credit limit exceeded : "+amountToWithdraw);
+		}
+		else {
+			super.accountBalance =super.accountBalance - amountToWithdraw;
+		}
+	} 
+	
+	void deposit(double amountToDeposit) { //mandatory definition
+			System.out.println("Tank you for the bill payment : "+amountToDeposit);
+			super.accountBalance = super.accountBalance + amountToDeposit;
+
 	}
 }
 
