@@ -67,6 +67,35 @@ class BankOperation
 		System.out.println("---------------");
 	}
 }
+interface TransferService {
+	void fundTransfer(WithdrawService source, DepositService target, double amountToTransfer);
+}
+
+//Doctor d = new Surgeon();
+//d.doSurgery();
+
+class FundTransferService implements TransferService
+{
+	public void fundTransfer(WithdrawService source, DepositService target, double amountToTransfer)
+	{
+		System.out.println("=> TRANSFER ");
+		if(source.getBalance() > amountToTransfer) {
+			
+			source.withdraw(amountToTransfer);
+			//source.deposit(amountToTransfer);
+			target.deposit(amountToTransfer);
+			//target.withdraw(amountToTransfer);
+			
+			System.out.println("!!! Transfer successful !!! ");
+		}
+		else {
+			System.out.println("Insufficient balance at source....");
+			System.out.println("Transfer declined...");
+		}
+		System.out.println("TRANSFER <= ");
+	}
+}
+
 public class InheritanceTest2 {
 	public static void main(String[] args) {
 	
@@ -75,25 +104,54 @@ public class InheritanceTest2 {
 		FixedDepositAccount fd = new FixedDepositAccount(103,"Julie",75000,10.7f,2027);
 		CurrectAccount ca = new CurrectAccount(104,"Julia",100000,0.25f);
 		CreditAccount cca = new CreditAccount(105,"John",35000,100000);
-		BankOperation.processAllAccounts(sa);
+		
+		sa.showBankAccount();
+		System.out.println("--------");
+		ca.showBankAccount();
+		
+		FundTransferService fts = new FundTransferService();
+		fts.fundTransfer(ca, sa, 10000);
+
+		sa.showBankAccount();
+		System.out.println("--------");
+		ca.showBankAccount();
+		
+		/*BankOperation.processAllAccounts(sa);
 		BankOperation.processAllAccounts(fd);
 		BankOperation.processAllAccounts(ca);
-		BankOperation.processAllAccounts(cca);
+		BankOperation.processAllAccounts(cca);*/
 	
 	}
 }
+
+
 interface PanDetails {
 	void showPAN(); // by default it is public abstract
 }
-abstract class BankAccount implements PanDetails //extends Object
+interface WithdrawService
+{
+	double getBalance();
+	void withdraw(double amountToWithdraw);
+}
+interface DepositService 
+{
+	double getBalance();
+	void deposit(double amountToDeposit);
+}
+
+abstract class BankAccount implements PanDetails, WithdrawService,DepositService //extends Object
 {
 	private int accountNumber;
 	private String accountHolderName;
 	protected double accountBalance; //now the child can refer to it
 	
-	abstract void withdraw(double amountToWithdraw); //declared - not defined
-	abstract void deposit(double amountToDeposit); //declared - not defined
+	//abstract void withdraw(double amountToWithdraw); //declared - not defined
+	//abstract void deposit(double amountToDeposit); //declared - not defined
 	abstract void askPin();
+	
+	public double getBalance() {
+		return accountBalance;
+	}
 	
 	public BankAccount(int accountNumber, String accountHolderName, double accountBalance) {
 		super(); //not required
@@ -126,7 +184,7 @@ class SavingsAccount extends BankAccount {
 		double simpleInterest = (super.accountBalance * 1 *rateOfInterest )/100; 
 		return simpleInterest;
 	}
-	void withdraw(double amountToWithdraw) { //mandatory definition
+	public void withdraw(double amountToWithdraw) { //mandatory definition
 		if(amountToWithdraw > (super.accountBalance-5000) ) {
 			System.out.println("Cannot withdraw, please maintain account balance as 5000");
 		}
@@ -135,7 +193,7 @@ class SavingsAccount extends BankAccount {
 		}
 	} 
 	
-	void deposit(double amountToDeposit) { //mandatory definition
+	public void deposit(double amountToDeposit) { //mandatory definition
 		if(amountToDeposit >= 50000) {
 			System.out.println("Please provide income proof to deposit : "+amountToDeposit);
 		}
@@ -191,7 +249,7 @@ class CurrectAccount extends BankAccount {
 		double withdrawLimit = super.accountBalance + super.accountBalance * overDraftLimit; 
 		return withdrawLimit;
 	}
-	void withdraw(double amountToWithdraw) { //mandatory definition
+	public void withdraw(double amountToWithdraw) { //mandatory definition
 		if(amountToWithdraw > calculateWithdrawLimit() ) {
 			System.out.println("Cannot withdraw, amount to withdraw is exceeding overdraft limit.."+amountToWithdraw);
 		}
@@ -200,7 +258,7 @@ class CurrectAccount extends BankAccount {
 		}
 	} 
 	
-	void deposit(double amountToDeposit) { //mandatory definition
+	public void deposit(double amountToDeposit) { //mandatory definition
 		if(amountToDeposit >= 50000) {
 			System.out.println("Please provide TDS certificate : "+amountToDeposit);
 		}
@@ -232,7 +290,7 @@ class CreditAccount extends BankAccount {
 		double currentLimit = creditLimit - super.accountBalance; 
 		return currentLimit;
 	}
-	void withdraw(double amountToWithdraw) { //mandatory definition
+	public void withdraw(double amountToWithdraw) { //mandatory definition
 		if(amountToWithdraw > calculateCurrentCreditLimit() ) {
 			System.out.println("Cannot withdraw, credit limit exceeded : "+amountToWithdraw);
 		}
@@ -241,7 +299,7 @@ class CreditAccount extends BankAccount {
 		}
 	} 
 	
-	void deposit(double amountToDeposit) { //mandatory definition
+	public void deposit(double amountToDeposit) { //mandatory definition
 			System.out.println("Thank you for the bill payment : "+amountToDeposit);
 			super.accountBalance = super.accountBalance + amountToDeposit;
 
@@ -253,6 +311,7 @@ class CreditAccount extends BankAccount {
 		System.out.println("CreditAccount  PAN card");
 	}
 }
+
 
 
 
