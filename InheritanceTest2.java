@@ -1,36 +1,76 @@
-/*
- * 							BankAccount
+/* inherited
+ * overridden
+ * exclusive
+ * implemented
+ * 					abstract BankAccount <-- super class- Generalization
  * 							|acno,name,balance
+ * 							|	
+							|abstract void withdraw(double amountToWithdraw); //declared - not defined
+							|abstract void deposit(double amountToDeposit); //declared - not defined
+							|
  * 			--------------------------------------
  * 			|				|				|
- * 		SavingsAccount	CurrentAccount	CreditAccount
+ * 		SavingsAccount	CurrentAccount	CreditAccount <-- Specialization
  * 		rate				overdraft		creditLimit
  * 		|
- * FixedDepositAccount
+ * FixedDepositAccount <--<-- Specialization
  * 	maturityYear
+ * 
+ * Art GAllery - various paintings are displayed 
+ * 
+ *      one of the painting - might not have any real meaning
+ *          |
+ *  -------------------------
+ *  |      |      |	      |
+ *  tree  cloud  ghost   face
+ * o1      o2     o3      o4 .....
+ * 
+ * abstract = incomplete class
+ *   instance of abstract class cannot be created
+ *   but reference to it can be created
+ *   
+ *   what the purpose of such class
+ *   
+ *   abstract meant for inheritance
+ *   
+ *   it will contain the common data structure + methods for the class hierarchy
+ *   
+ *   ABSTRACT CLASS "MAY NOT HAVE" ABSTRACT METHODS
+ *   
  * */
 
-public class InheritanceTest2 {
-	public static void main(String[] args) {
-		BankAccount ba = new BankAccount(101,"Jack",50000);
-		ba.showBankAccount();
-		
+class BankOperation
+{
+	static void processAllAccounts(BankAccount ref) {
+		System.out.println("Name of the class : "+ref.getClass().getName());
+		ref.showBankAccount();
 		System.out.println("---------------");
-		
-		SavingsAccount sa = new SavingsAccount(102,"Janet",65000,8.7f);
-		sa.showBankAccount();
-		
-		System.out.println("---------------");
-		
-		FixedDepositAccount fd = new FixedDepositAccount(103,"Julie",75000,10.7f,2027);
-		fd.showBankAccount();
 	}
 }
-class BankAccount //extends Object
+public class InheritanceTest2 {
+	public static void main(String[] args) {
+	
+		//bank account class is disguised 
+		SavingsAccount sa = new SavingsAccount(102,"Janet",65000,8.7f);
+		FixedDepositAccount fd = new FixedDepositAccount(103,"Julie",75000,10.7f,2027);
+		CurrectAccount ca = new CurrectAccount(104,"Julia",100000,0.25f);
+		CreditAccount cca = new CreditAccount(105,"John",35000,100000);
+		BankOperation.processAllAccounts(sa);
+		BankOperation.processAllAccounts(fd);
+		BankOperation.processAllAccounts(ca);
+		BankOperation.processAllAccounts(cca);
+	
+	}
+}
+abstract class BankAccount //extends Object
 {
 	private int accountNumber;
 	private String accountHolderName;
 	protected double accountBalance; //now the child can refer to it
+	
+	abstract void withdraw(double amountToWithdraw); //declared - not defined
+	abstract void deposit(double amountToDeposit); //declared - not defined
+	
 	
 	public BankAccount(int accountNumber, String accountHolderName, double accountBalance) {
 		super(); //not required
@@ -85,11 +125,42 @@ class FixedDepositAccount extends SavingsAccount {
 	//P(1+r/100)^n
 }
 
+class CurrectAccount extends BankAccount {
+	private float overDraftLimit;
 
+	public CurrectAccount(int accountNumber, String accountHolderName, double accountBalance, float overDraftLimit) {
+		super(accountNumber, accountHolderName, accountBalance);
+		this.overDraftLimit = overDraftLimit;
+	}
+	public void showBankAccount() {
+		super.showBankAccount();//member method of the nearest super class
+		System.out.println("Bank overdraftLimit  : " + overDraftLimit);
+		System.out.println("Bank Account SI      : " + calculateWithdrawLimit());
+		
+	}
+	private double calculateWithdrawLimit() {
+		double withdrawLimit = super.accountBalance + super.accountBalance * overDraftLimit; 
+		return withdrawLimit;
+	}
+}
+class CreditAccount extends BankAccount {
+	private float creditLimit; //100000
 
-
-
-
+	public CreditAccount(int accountNumber, String accountHolderName, double accountBalance, float creditLimit) {
+		super(accountNumber, accountHolderName, accountBalance);
+		this.creditLimit = creditLimit;
+	}
+	public void showBankAccount() {
+		super.showBankAccount();//member method of the nearest super class
+		System.out.println("Bank Credit Limit    : " + creditLimit);
+		System.out.println("Bank Current limit   : " + calculateCurrentCreditLimit());
+		
+	}
+	private double calculateCurrentCreditLimit() {
+		double currentLimit = creditLimit - super.accountBalance; 
+		return currentLimit;
+	}
+}
 
 
 
