@@ -28,11 +28,25 @@ public class UserDefinedExceptionTest {
 		Person p1;
 		
 			try {
-				p1 = new Person('M',220,"Jack");
+				p1 = new Person('y',22,"Ja34ck");
 				System.out.println("p1 "+p1);
-			} catch (Exception e) {
+			}
+			
+			catch(GenderException e) {
+				System.out.println("Problem1 : "+e);
+			}
+			catch(AgeException e) {
+				System.out.println("Problem2 : "+e);
+			}
+			catch(NameException e) {
+				System.out.println("Problem3 : "+e);
+			}
+			catch(PersonException e) {
+				System.out.println("Problem : "+e);
+			}
+			catch (Exception e) {
 				// TODO Auto-generated catch block
-				System.out.println(e); //classname + message
+				System.out.println("Problem : "+e); //classname + message
 				//System.out.println(e.getMessage()); //only message
 				//e.printStackTrace();
 			}
@@ -54,16 +68,20 @@ class Person
 	//if you are throwing unchecked exceptions, then throws clause is
 	//not mandatory, and even handling try..catch is also optional
 //
-	public Person(char gender, int age, String name)  throws Exception
+	public Person(char gender, int age, String name)  throws PersonException //, GenderException, AgeException,NameException
 	{
 		super();
+		
+		if(gender =='T') {
+			throw new PersonException("Invalid gender");
+		}
 		System.out.println("=>Person(...) constructor started....");
 		if(gender =='M' || gender =='m' || gender =='f' || gender=='F')
 			this.gender = gender;
 		else {
 			//System.out.println("Invalid gender");
 			//RuntimeException r = new RuntimeException ("Invalid Gender");
-			Exception r = new Exception ("Invalid Gender");
+			GenderException r = new GenderException ("Invalid Gender");
 			throw r; //control would exit from here
 		}
 		
@@ -71,7 +89,7 @@ class Person
 			this.age = age;
 		else {
 			//RuntimeException r = new RuntimeException ("Invalid Age");
-			Exception r = new Exception ("Invalid Age");
+			AgeException r = new AgeException ("Invalid Age");
 			throw r;
 		}
 		String regEx="^[a-zA-Z\\\\s]+";
@@ -80,7 +98,7 @@ class Person
 		}
 		else {
 			//RuntimeException r = new RuntimeException ("Invalid Name");
-			Exception r = new Exception ("Invalid Name");
+			NameException r = new NameException ("Invalid Name");
 			throw r;
 		}
 		
@@ -93,3 +111,30 @@ class Person
 	}
 	
 }
+
+class PersonException extends Exception
+{
+	PersonException(String str) {
+		super(str);
+	}
+}
+class GenderException extends PersonException
+{
+	GenderException(String msg) {
+		super(msg);
+	}
+}
+class AgeException extends PersonException
+{
+	AgeException(String msg) {
+		super(msg);
+	}
+}
+class NameException extends PersonException
+{
+	NameException(String msg) {
+		super(msg);
+	}
+}
+
+
