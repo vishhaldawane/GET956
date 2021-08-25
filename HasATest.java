@@ -2,49 +2,51 @@
 public class HasATest {
 	public static void main(String[] args) {
 		
-		WorkSheet ws1 = new WorkSheet();
+		WorkBook wb = new WorkBook();
 		
-		ws1.a1.setValue("Fruit");
-		ws1.a2.setValue("Apple");
-		ws1.a3.setValue("Mango");
-		ws1.a4.setValue("Orange");
-		ws1.a5.setValue("Total");
+		wb.ws1.a1.setValue("Fruit");
+		wb.ws1.a2.setValue("Apple");
+		wb.ws1.a3.setValue("Mango");
+		wb.ws1.a4.setValue("Orange");
+		wb.ws1.a5.setValue("Total");
 			
-		ws1.b1.setValue("Qty");
-		ws1.b2.setValue("100");
-		ws1.b3.setValue("200");
-		ws1.b4.setValue("300");
+		wb.ws1.b1.setValue("Qty");
+		wb.ws1.b2.setValue("100");
+		wb.ws1.b3.setValue("200");
+		wb.ws1.b4.setValue("300");
 		
-		Integer sum = Integer.parseInt(ws1.b2.getValue())+Integer.parseInt(ws1.b3.getValue())+Integer.parseInt(ws1.b4.getValue());
+		Integer sum = Integer.parseInt(wb.ws1.b2.getValue())+Integer.parseInt(wb.ws1.b3.getValue())+Integer.parseInt(wb.ws1.b4.getValue());
 		String total =  sum.toString(); //   String.valueOf(sum); where sum is int
 		
-		ws1.b5.setValue(total);
+		wb.ws1.b5.setValue(total);
 		
-		ws1.printWorkSheet();
+		wb.ws1.printWorkSheet();
 		
 		System.out.println("----------------");
 		
-		WorkSheet ws2 = new WorkSheet();
 		
-		ws2.a1.setValue("Subject");
-		ws2.a2.setValue("Physics");
-		ws2.a3.setValue("Chemistry");
-		ws2.a4.setValue("Maths");
-		ws2.a5.setValue("Total");
+		
+		wb.ws2.a1.setValue("Subject");
+		wb.ws2.a2.setValue("Physics");
+		wb.ws2.a3.setValue("Chemistry");
+		wb.ws2.a4.setValue("Maths");
+		wb.ws2.a5.setValue("Total");
 			
-		ws2.b1.setValue("Qty");
-		ws2.b2.setValue("85");
-		ws2.b3.setValue("90");
-		ws2.b4.setValue("95");
+		wb.ws2.b1.setValue("Qty");
+		wb.ws2.b2.setValue("85");
+		wb.ws2.b3.setValue("90");
+		wb.ws2.b4.setValue("95");
 		
-		Integer sum1 = Integer.parseInt(ws2.b2.getValue())+Integer.parseInt(ws2.b3.getValue())+Integer.parseInt(ws2.b4.getValue());
+		Integer sum1 = Integer.parseInt(wb.ws2.b2.getValue())+Integer.parseInt(wb.ws2.b3.getValue())+Integer.parseInt(wb.ws2.b4.getValue());
 		String total1 =  sum1.toString(); //   String.valueOf(sum); where sum is int
 		
-		ws2.b5.setValue(total1);
+		wb.ws2.b5.setValue(total1);
 		
-		ws2.printWorkSheet();
+		wb.ws2.printWorkSheet();
+		
+		System.out.println("=========");
 	
-		
+		wb.printWorkBook();
 		
 		
 
@@ -92,6 +94,27 @@ public class HasATest {
 	Cell b3 = new Cell("B",3,"300");
 	Cell b4 = new Cell("B",4,"100");
  */
+
+//WorkBook - to have 3 worksheets
+
+class WorkBook //is nothing but your EXCEL file 
+{
+	WorkSheet ws1 = new WorkSheet();
+	
+	WorkSheet ws2 = new WorkSheet();
+	
+	/*WorkSheet ws[]= new WorkSheet[10]; //just 10 references, not the actual objects
+	
+	WorkBook() {
+		ws[0] = new WorkSheet(); //first work sheet is here in the array
+		ws[1] = new WorkSheet();
+	}*/
+	void printWorkBook() {
+		ws1.printWorkSheet();
+		ws2.printWorkSheet();
+	}
+	
+}
 
 class WorkSheet 
 {
@@ -151,7 +174,7 @@ class Cell //Object
 
 
 
-	public int getRowNumber() {
+	/*public int getRowNumber() {
 		return rowNumber;
 	}
 	public void setRowNumber(int rowNumber) {
@@ -162,7 +185,7 @@ class Cell //Object
 	}
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
-	}
+	}*/
 	public String getValue() {
 		return value;
 	}
@@ -174,6 +197,34 @@ class Cell //Object
 	
 }
 
+class Font
+{
+	String fontName; //Times New Roman, ...Comic Sans MS......
+	String fontColor;
+	int fontSize; 
+	int fontStyle; //bold italics or underline
+	
+	
+}
+class  Letter
+{
+	char alphabet;
+	Font font = new Font();
+}
+
+class Word
+{
+	Letter l1 = new Letter();
+	Letter l2 = new Letter();
+	
+	
+}
+
+class Sentence
+{
+	Word w1 = new Word();
+	Word w2 = new Word();
+}
 
 
 
