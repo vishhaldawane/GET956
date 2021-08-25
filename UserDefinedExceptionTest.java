@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /*
  * Person p1 = new Person('R',22,"Jack");
  *  |     |     |	|
@@ -27,11 +29,29 @@ public class UserDefinedExceptionTest {
 		System.out.println("begin main");
 		Person p1;
 		
+		Scanner scanInt = new Scanner(System.in);
+		Scanner scanStr1 = new Scanner(System.in);
+		Scanner scanStr2 = new Scanner(System.in);
+		
+		int choice=0;
+		while(choice==0)
+		{
+			System.out.println("Enter gender : ");
+			char gender = scanStr1.next().charAt(0); //M<--|
+			
+			System.out.println("Enter age    : ");
+			int age = scanInt.nextInt(); //22<-|
+		
+			System.out.println("Enter gender : ");
+			String name = scanStr2.nextLine(); //NEW YORK
+			
 			try {
-				p1 = new Person('y',22,"Ja34ck");
+				p1 = new Person(gender,age,name);
 				System.out.println("p1 "+p1);
 			}
-			
+			/*catch(GenderException|AgeException|NameException e) {
+				System.out.println("Problem1 : "+e);
+			}*/
 			catch(GenderException e) {
 				System.out.println("Problem1 : "+e);
 			}
@@ -50,8 +70,10 @@ public class UserDefinedExceptionTest {
 				//System.out.println(e.getMessage()); //only message
 				//e.printStackTrace();
 			}
-			
-		
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Press 0 to continue...");
+			choice = scan.nextInt();
+		}
 	
 		System.out.println("End  of main");
 	}
