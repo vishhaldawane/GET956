@@ -1,10 +1,17 @@
 package com.mysongs;
-
-public class Song {
+								//java.lang
+public class Song implements Comparable<Song> {
 	private String title;
 	private String artist;
 	private String album;
 	private int year;
+	
+	@Override
+	public int compareTo(Song o) {
+		System.out.println("Comparing "+year+" with "+o.year);
+		return Integer.compare(year, o.year);
+	
+	}
 	
 	public Song(String title, String artist, String album, int year) {
 		super();
@@ -50,6 +57,8 @@ public class Song {
 	public void setYear(int year) {
 		this.year = year;
 	}
+
+	
 	
 	
 	
