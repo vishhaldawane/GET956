@@ -128,11 +128,11 @@ import java.util.ArrayList;
  *
  *
  */
-class MyInteger //no need to make this class, already java.lang.Integer wrapper is present 
+class MyInteger1 //no need to make this class, already java.lang.Integer wrapper is present 
 {
 	private int value;
 	
-	MyInteger(int x) {
+	MyInteger1(int x) {
 		value = x;
 	}
 	int valueOf() {
@@ -157,7 +157,7 @@ public class GenericTest {
 		System.out.println("4num : "+num++);
 		System.out.println("5num : "+num);
 		
-		MyInteger mi = new MyInteger(200); // your primitive inside a cage 
+		MyInteger1 mi = new MyInteger1(200); // your primitive inside a cage 
 		System.out.println(mi.valueOf());
 		mi.preIncrement();
 		System.out.println(mi.valueOf());
