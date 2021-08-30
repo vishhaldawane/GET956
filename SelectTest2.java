@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,7 +26,7 @@ import java.util.Scanner;
     Connection <-DriverManager.getConnection("dsn","username","password"); 
  jdbc:hsqldb:hsql://localhost/mydb", "SA","")
  */
-public class SelectTest {
+public class SelectTest2 {
 	public static void main(String[] args) {
 		
 	    //DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
@@ -39,26 +40,31 @@ public class SelectTest {
 		
 			//Connection conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/mydb","SA","");
 			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:OSE","scott", "tiger");
-					
-
 			System.out.println("Connected to the database "+conn);
-			Statement statement= conn.createStatement(); //query for select, DML
 			
-			System.out.println("Statement created : "+statement);
+			
+			//below interface is the child of the Statement interface
+			
+			PreparedStatement preparedStatement= 
+					conn.prepareStatement("select * from emp where job=?"); 
+			System.out.println("Prepared Statement created : "+preparedStatement);
+			
 			Scanner scan = new Scanner(System.in);
 			System.out.println("Enter job to search : ");
 			String v_job = scan.nextLine();
-			ResultSet rs = statement.executeQuery("select * from emp where job="+"'"+v_job+"'");
+			preparedStatement.setString(1, v_job); //fill up the first question mark
 			
-			while(rs.next()) {
-				System.out.println("Emp number  : " + rs.getInt(1) );
-				System.out.println("Emp name    : " + rs.getString(2) );
-				System.out.println("Emp Job     : " + rs.getString(3) );
-				System.out.println("Emp Manager : " + rs.getString(4) );
-				System.out.println("Emp Joining : " + rs.getString(5) );
-				System.out.println("Emp Salary  : " + rs.getInt(6) );
-				System.out.println("Emp Comm    : " + rs.getInt(7) );
-				System.out.println("Emp Dept    : " + rs.getInt(8) );
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				System.out.println("Emp number  : " + resultSet.getInt(1) );
+				System.out.println("Emp name    : " + resultSet.getString(2) );
+				System.out.println("Emp Job     : " + resultSet.getString(3) );
+				System.out.println("Emp Manager : " + resultSet.getString(4) );
+				System.out.println("Emp Joining : " + resultSet.getString(5) );
+				System.out.println("Emp Salary  : " + resultSet.getInt(6) );
+				System.out.println("Emp Comm    : " + resultSet.getInt(7) );
+				System.out.println("Emp Dept    : " + resultSet.getInt(8) );
 				System.out.println("-----------------------");
 			}
 			System.out.println("=============================================");
@@ -71,7 +77,11 @@ public class SelectTest {
 			String toDate = scan3.nextLine();
 			
 			//ResultSet dateRs = statement.executeQuery("select * from emp where hiredate between '01-Jan-81' and '31-Dec-81'");
-			ResultSet dateRs = statement.executeQuery("select * from emp where hiredate between "+"'"+fromDate+"'"+" and "+"'"+toDate+"'");
+			//ResultSet dateRs = statement.executeQuery("select * from emp where hiredate between "+"'"+fromDate+"'"+" and "+"'"+toDate+"'");
+			PreparedStatement preparedStatement2 = conn.prepareStatement("select * from emp where hiredate between ? and ?");
+			preparedStatement2.setString(1, fromDate);
+			preparedStatement2.setString(2, toDate);
+			ResultSet dateRs = preparedStatement2.executeQuery();
 			
 			while(dateRs.next()) {
 				System.out.println("Emp number  : " + dateRs.getInt(1) );
@@ -86,8 +96,10 @@ public class SelectTest {
 			}
 			
 			
-			rs.close();
-			statement.close();
+			resultSet.close();
+			dateRs.close();
+			preparedStatement.close();
+			preparedStatement2.close();
 			conn.close();
 			System.out.println("DB resources are closed....");
 		} catch (SQLException e) {
