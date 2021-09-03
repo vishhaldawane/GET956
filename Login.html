@@ -47,6 +47,15 @@
 		 		
 		 		return validate;
 		 	}
+		 	
+		 	function clearPassErrMsg() {
+		 		document.getElementById("passErrMsg").innerHTML='';	
+		 	}
+		 	
+		 	function clearUserErrMsg() {
+		 		document.getElementById("userErrMsg").innerHTML='';	
+		 	}
+		 	
 		 </script>
 	</head>
 
@@ -55,8 +64,8 @@
 		
 		<form action="UserDashBoard.html">   
 			<TABLE BORDER=2 CELLSPACING=10 CELLPADDING=10  style="background-color:orange;">
-				<TR> <TD>Enter username </TD> 		<TD><input type=text id="uname"><span id="userErrMsg"></span></TD>  </TR>
-				<TR> <TD>Enter password </TD> 	<TD><input type=password id="upass"><span id="passErrMsg"></span></TD>  </TR>
+				<TR> <TD>Enter username </TD> 		<TD><input type=text id="uname" onkeyup="clearUserErrMsg()"><span id="userErrMsg"></span></TD>  </TR>
+				<TR> <TD>Enter password </TD> 	<TD><input type=password id="upass" onkeyup="clearPassErrMsg()"><span id="passErrMsg"></span></TD>  </TR>
 		
 				<TR> <TD><input type=submit value="Login" onclick="return validateLogin()"></TD> </TR>
 			</TABLE>
