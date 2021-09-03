@@ -15,32 +15,37 @@
 		 
 		 <script>
 		 	function validateLogin() {
+		 		var validate=true;
 		 		//alert('java script1 executed...');
 		 		var username = document.getElementById("uname").value;
 		 		var password = document.getElementById("upass").value;
 		  		//alert(username.length);
 		 		
 		 		if(username == "") {
-		 			alert('Username cannot be blank');
-		 			return false;
+		 			//alert('Username cannot be blank');
+		 			document.getElementById("userErrMsg").innerHTML='Cannot be blank';
+		 			validate=false;
 		 		}
 		 		
 		 		if(password == "") {
-		 			alert('Password cannot be blank');
-		 			return false;
+		 			//alert('Password cannot be blank');
+		 			document.getElementById("passErrMsg").innerHTML='Cannot be blank';
+		 			validate=false;
 		 		}
 		 		
 		 		if(username.length > 8) {
-		 			alert('Username cannot be more than 8 letters');	
-		 			return false;
+		 			//alert('Username cannot be more than 8 letters');	
+		 			document.getElementById("userErrMsg").innerHTML='Cannot exceed 8 letters';
+		 			validate=false;
 		 		}
 		 		
 		 		if(password.length > 8) {
-		 			alert('Password cannot be more than 8 letters');	
-		 			return false;
+		 			//alert('Password cannot be more than 8 letters');	
+		 			document.getElementById("passErrMsg").innerHTML='Cannot exceed 8 letters';
+		 			validate=false;
 		 		}
 		 		
-		 		return true;
+		 		return validate;
 		 	}
 		 </script>
 	</head>
@@ -50,8 +55,8 @@
 		
 		<form action="UserDashBoard.html">   
 			<TABLE BORDER=2 CELLSPACING=10 CELLPADDING=10  style="background-color:orange;">
-				<TR> <TD>Enter username </TD> 		<TD><input type=text id="uname"></TD> </TR>
-				<TR> <TD>Enter password </TD> 	<TD><input type=password id="upass"></TD> </TR>
+				<TR> <TD>Enter username </TD> 		<TD><input type=text id="uname"><span id="userErrMsg"></span></TD>  </TR>
+				<TR> <TD>Enter password </TD> 	<TD><input type=password id="upass"><span id="passErrMsg"></span></TD>  </TR>
 		
 				<TR> <TD><input type=submit value="Login" onclick="return validateLogin()"></TD> </TR>
 			</TABLE>
