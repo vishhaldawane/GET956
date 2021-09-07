@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Search Your Flight </title>
+	</head>
+		<!--let p = document.getElementByName("principal").value
+		let r = document.getElementByName("rate").value
+		let n = document.getElementByName("years").value
+		let si = (p*n*r)/100;
+		document.getElementBy("s").innerHTML=si; -->
+		<body>
+			<h3>title is {{title}}</h3>
+			<input type="text" value="title"> <br>
+			<input type="text" value="{{title}}"> <br> <!--interpollation-->
+			<input type="text" [value]="title"> <br> <!--property binding-->
+
+			<h2>Without ngModel</h2>
+			<label> Enter principal amount </label> <input type="number" name="principal"  value={{principal}}>Rs.<br>
+			<label> Enter rate of interest </label> <input type="number" name="rate" value={{rate}}><br>
+			<label> Enter period in years  </label> <input type="number" name="years" value={{years}}><br>	
+			<hr>
+			<h2>With ngModel and ngModelChange</h2>
+			<label> Enter principal amount </label> <input type="number" name="principal"  [(ngModel)]="principal" (ngModelChange)="calculateSimpleInterest()">Rs.<br>
+			<label> Enter rate of interest </label> <input type="number" name="rate"  [(ngModel)]="rate" (ngModelChange)="calculateSimpleInterest()"><br>
+			<label> Enter period in years  </label> <input type="number" name="years"  [(ngModel)]="years" (ngModelChange)="calculateSimpleInterest()"><br>	
+			<hr>	
+			<h2>With ngModel and change</h2>
+			<label> Enter principal amount </label> <input type="number" name="principal"  [(ngModel)]="principal" (change)="calculateSimpleInterest()">Rs.<br>
+			<label> Enter rate of interest </label> <input type="number" name="rate" [(ngModel)]="rate" (change)="calculateSimpleInterest()" ><br>
+			<label> Enter period in years  </label> <input type="number" name="years" [(ngModel)]="years" (change)="calculateSimpleInterest()" ><br>	
+			<hr>
+
+			Principal Amount Entered by you is {{principal}} <br>
+			Rate  Entered by you is {{rate}} <br>
+			Years  Entered by you is {{years}} <br>
+			<hr>
+			<button (click)="calculateSimpleInterest()">Calculate Simple Interest </button>
+			<label>Calculated Simple Interest is :  {{ si  }} 	</label> <br>
+			<label>Calculated Simple Interest is :  {{si | currency : 'INR'}} 	</label> <br>
+			<label>Calculated Simple Interest is :  {{si | currency : 'USD'}} 	</label> <br>
+			<label>Calculated Simple Interest is :  {{si | currency : 'EUR'}} 	</label> <br>
+			<p>Account opening date is {{accountOpeningDate}}</p>
+			<p>Account opening date is h:mm a {{accountOpeningDate | date : 'h:mm a'}}</p>
+			<p>Account opening date is M/dd/yyyy {{accountOpeningDate | date : 'M/dd/yyyy'}}</p>
+			<p>Account opening date is shortdate {{accountOpeningDate | date : 'shortDate'}}</p>
+			<p>Account opening date is fulldate {{accountOpeningDate | date : 'fullDate' }}</p>
+			<p> Square root of 225 is {{ 225 | sqrt }} </p>
+		
+		<style type="text/css">
+				h1 {
+					color:pink;
+				}
+		</style>
+		
+	
+
+
+
+<video width="320" height="240" autoplay>
+  <source src="video.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+        <h1 id="h1id"> Welcome To My {{ title }} </h1>
+		<h1 id="h1id"> Welcome To My {{ title | uppercase }} </h1>
+		<h1 id="h1id"> Welcome To My {{ title | lowercase }} </h1>
+		
+		<div *ngIf="isUserLoggedIn; else myElseBlock">
+				its true
+				Yes, user is logged in
+		</div>
+		<ng-template #myElseBlock>
+			its false
+			user is not yet logged in
+		</ng-template>
+	
+		<form action="FoundFlights.html">   
+			<TABLE BORDER=2 CELLSPACING=10 CELLPADDING=10 style="background-color:aqua;">
+				<th colspan="2" align=center><h2> Search Flights </h2></th>
+				<TR> <TD>Enter source city</TD> 		
+				<TD>
+						<select>
+								<option value="BOM">Mumbai</option>
+								<option value="MAA">Chennai</option>
+								<option value="DEL">Delhi</option>
+								<option value="KOL">Kolkata</option>
+						</select> 
+			    </TD> 
+			    </TR>
+				<TR> <TD>Enter destination city</TD> 	
+			 
+				<TD>
+				
+					<select>
+								<option value="KOL">Kolkata</option>
+								<option value="DEL">Delhi</option>
+								<option value="MAA">Chennai</option>
+								<option value="MUM">Mumbai</option>
+					</select> 
+				
+				</TR>
+				<TR> <TD>Enter date of Journey</TD> 	<TD><input type=date name=doj></TD> </TR>
+			
+				<TR> <TD colspan="2" align="center"><button type="submit" class="btn"  style="background-color: #fb641b">Search Flight</button> </TD> </TR>
+			</TABLE>
+		</form>
+
+	</body>
+
+	</html>
+	<!--
+		<app-show-flights> </app-show-flights>
+	 
+			<app-login></app-login>
+		<app-register></app-register>
+		<app-reset-password></app-reset-password>
+		<app-forgot-password></app-forgot-password>
+		
+		23 design pattern - Gang Of Four - Eric G
+
+		Pattern - an approach of coding towards a particular problem statment
+
+		1. ensuring single instance of a class - Singleton pattern
+		2. separation of "data" from its view-[html|class] - MVC pattern
+	
+		MVC Pattern				vs		MVC Framework
+		|										|
+		Flight								FrontController
+		FlightView					model					view
+		FlightController
+		---									FlightComponent	
+		Employee									|
+		EmployeeView						flight.component.ts <-- MODEL -> Flight.ts
+		EmployeeController							|
+		-----								-----------------
+		SavingsAccount						|VIEW			|with STYLE
+		SavingsAccountView			flight.component.html	flight.component.css	
+		SavingsAccountController
+		--
+		..
+		..
+		..
+		--
+		..
+		..
+		..
+		---
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	-->
+	
+
+
